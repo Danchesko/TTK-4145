@@ -41,15 +41,14 @@ class DistributedElevatorController:
 
 
     async def handle_event(self, event):
-        match event.event_type:
-            case "button_press":
-                await self.on_button_press(event.floor, event.button)
-            case "floor_sensor":
-                await self.on_floor_sensor(event.floor)
-            case "stop_button":
-                await self.on_stop_button(event.value)
-            case "obstruction":
-                await self.on_obstruction(event.value)
+        if event.event_type == "button_press":
+            await self.on_button_press(event.floor, event.button)
+        elif event.event_type == "floor_sensor":
+            await self.on_floor_sensor(event.floor)
+        elif event.event_type == "stop_button":
+            await self.on_stop_button(event.value)
+        elif event.event_type == "obstruction":
+            await self.on_obstruction(event.value)
 
 
     async def on_button_press(self, floor, button):
